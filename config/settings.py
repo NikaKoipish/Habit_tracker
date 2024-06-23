@@ -44,12 +44,13 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
-    "django_filters",
-    "rest_framework_simplejwt",
-    "drf_yasg",
-    'django_celery_beat',
-    "users",
-    "classes",
+    # "django_filters",
+    # "rest_framework_simplejwt",
+    # "drf_yasg",
+    # 'django_celery_beat',
+
+    "habits",
+    "users"
 ]
 
 MIDDLEWARE = [
@@ -82,15 +83,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ]
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ],
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.IsAuthenticated',
+#     ]
+# }
 
 
 # Database
@@ -180,9 +181,9 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 
-CELERY_BEAT_SCHEDULE = {
-    'block_the_user': {
-        'task': 'users.tasks.block_the_user',
-        'schedule': timedelta(days=1),
-    },
-}
+# CELERY_BEAT_SCHEDULE = {
+#     'block_the_user': {
+#         'task': 'users.tasks.block_the_user',
+#         'schedule': timedelta(days=1),
+#     },
+# }
