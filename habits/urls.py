@@ -2,14 +2,18 @@ from django.urls import path
 from rest_framework.routers import DefaultRouter
 
 from habits.apps import HabitsConfig
-from habits.serializer import NiceHabitViewSet, RewardViewSet
-from habits.views import HabitListAPIView, HabitCreateAPIView, HabitRetrieveAPIView, HabitUpdateAPIView, \
-    HabitDestroyAPIView
+from habits.serializer import RewardViewSet
+from habits.views import (
+    HabitListAPIView,
+    HabitCreateAPIView,
+    HabitRetrieveAPIView,
+    HabitUpdateAPIView,
+    HabitDestroyAPIView,
+)
 
 app_name = HabitsConfig.name
 
 router = DefaultRouter()
-router.register(r"nicehabit", NiceHabitViewSet, basename="nicehabit")
 router.register(r"reward", RewardViewSet, basename="reward")
 
 urlpatterns = [

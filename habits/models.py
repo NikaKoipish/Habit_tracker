@@ -5,25 +5,6 @@ from users.models import User
 NULLABLE = {"null": True, "blank": True}
 
 
-class NiceHabit(models.Model):
-    """Модель приятной привычки"""
-
-    name = models.CharField(verbose_name="Название приятной привычки")
-    description = models.TextField(
-        verbose_name="Описание приятной привычки", **NULLABLE
-    )
-    owner = models.ForeignKey(
-        User, verbose_name="создатель", on_delete=models.SET_NULL, **NULLABLE
-    )
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "Приятная привычка"
-        verbose_name_plural = "Приятные привычки"
-
-
 class Reward(models.Model):
     """Модель вознаграждения"""
 
@@ -45,17 +26,14 @@ class Habit(models.Model):
 
     owner = models.ForeignKey(User, verbose_name="создатель", on_delete=models.CASCADE)
     name = models.CharField(verbose_name="Название привычки")
-    description = models.TextField(verbose_name="Описание привычки", **NULLABLE)
+    action = models.TextField(verbose_name="Действие")
     place = models.TextField(verbose_name="место", **NULLABLE)
     time = models.TimeField(verbose_name="время", **NULLABLE)
     is_nice = models.BooleanField(
-        default=True, verbose_name="признак приятной привычки"
+        default=False, verbose_name="признак приятной привычки"
     )
     related_nice_habit = models.ForeignKey(
-        NiceHabit,
-        verbose_name="связанная привычка",
-        on_delete=models.SET_NULL,
-        **NULLABLE
+        "self", verbose_name="связанная привычка", on_delete=models.SET_NULL, **NULLABLE
     )
     periodicity = models.IntegerField(default=1)  # 1 день
     reward = models.ForeignKey(
@@ -65,7 +43,7 @@ class Habit(models.Model):
     is_public = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name, self.description, self.time, self.periodicity
+        return f"Я буду {self.action} в {self.time} в {self.place}"
 
     class Meta:
         verbose_name = "Привычка"
