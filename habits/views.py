@@ -7,35 +7,44 @@ from rest_framework.generics import (
 )
 
 from habits.models import Habit
+from habits.paginators import ClassesPaginator
 from habits.serializer import HabitSerializer
+from rest_framework.permissions import IsAuthenticated
+
+from users.permissions import IsOwner
 
 
 class HabitCreateAPIView(CreateAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
-    # permission_classes = (~IsModer, IsAuthenticated)
+    permission_classes = (IsAuthenticated,)
 
     def perform_create(self, serializer):
-        lesson = serializer.save()
-        lesson.owner = self.request.user
-        lesson.save()
+        habit = serializer.save()
+        habit.owner = self.request.user
+        habit.save()
 
 
 class HabitListAPIView(ListAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
+    pagination_class = ClassesPaginator
+    permission_classes = (IsOwner, IsAuthenticated)
 
 
 class HabitRetrieveAPIView(RetrieveAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
+    permission_classes = (IsOwner, IsAuthenticated)
 
 
 class HabitDestroyAPIView(DestroyAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
+    permission_classes = (IsOwner,)
 
 
 class HabitUpdateAPIView(UpdateAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
+    permission_classes = (IsOwner,)

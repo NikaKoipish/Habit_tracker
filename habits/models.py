@@ -24,7 +24,7 @@ class Reward(models.Model):
 class Habit(models.Model):
     """Модель привычки"""
 
-    owner = models.ForeignKey(User, verbose_name="создатель", on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, verbose_name="создатель", on_delete=models.CASCADE, **NULLABLE)
     name = models.CharField(verbose_name="Название привычки")
     action = models.TextField(verbose_name="Действие")
     place = models.TextField(verbose_name="место", **NULLABLE)
