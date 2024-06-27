@@ -48,10 +48,9 @@ class RelatedNiceHabitValidator:
         self.field1 = field1
         self.field2 = field2
 
-    def __call__(self, value):
-        val = dict(value).get(self.field1) # как выглядит этот словарь? где посмотреть через Shell, Debug
-        if val:
-            if not dict(value).get(self.field2): # как привязать внутреннее поле модели и проверить его
+    def __call__(self, habit: dict):
+        if related_habit := habit.get("related_nice_habit"):
+            if not related_habit.is_nice:
                 raise serializers.ValidationError(
                     f"В связанные привычки могут попадать только привычки с признаком приятной привычки"
                 )

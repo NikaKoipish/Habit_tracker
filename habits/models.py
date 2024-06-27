@@ -41,6 +41,7 @@ class Habit(models.Model):
     )
     time_to_implement = models.IntegerField(default=120)  # 2 минуты(120 секунд)
     is_public = models.BooleanField(default=True)
+    send_date = models.DateField(auto_now_add=True, verbose_name="дата начала отправки", **NULLABLE)
 
     def __str__(self):
         return f"Я буду {self.action} в {self.time} в {self.place}"

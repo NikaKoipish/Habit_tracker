@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework.generics import (
     CreateAPIView,
     ListAPIView,
@@ -17,7 +18,6 @@ from users.permissions import IsOwner
 class HabitCreateAPIView(CreateAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
-    permission_classes = (IsAuthenticated,)
 
     def perform_create(self, serializer):
         habit = serializer.save()
@@ -27,24 +27,26 @@ class HabitCreateAPIView(CreateAPIView):
 
 class HabitListAPIView(ListAPIView):
     serializer_class = HabitSerializer
-    queryset = Habit.objects.all()
     pagination_class = ClassesPaginator
-    permission_classes = (IsOwner, IsAuthenticated)
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        self.queryset = Habit.objects.filter(Q(is_public=True) | Q(owner=self.request.user))
+        return self.queryset
 
 
 class HabitRetrieveAPIView(RetrieveAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
-    permission_classes = (IsOwner, IsAuthenticated)
 
 
 class HabitDestroyAPIView(DestroyAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
-    permission_classes = (IsOwner,)
+    permission_classes = [IsOwner]
 
 
 class HabitUpdateAPIView(UpdateAPIView):
     serializer_class = HabitSerializer
     queryset = Habit.objects.all()
-    permission_classes = (IsOwner,)
+    permission_classes = [IsOwner]
