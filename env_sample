@@ -1,0 +1,15 @@
+SECRET_KEY=
+DEBUG=True
+
+NAME=
+USER=
+PASSWORD=
+PORT=****
+HOST=***.*.*.*
+
+
+LOCATION=redis://***.*.*.*:****
+CACHE_ENABLED=True
+
+TELEGRAM_TOKEN=
+TELEGRAM_URL=https://api.telegram.org/bot
