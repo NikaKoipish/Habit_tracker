@@ -13,11 +13,16 @@
 - PostgreSQL
 - DRF
 - Telegram
+- Celery Beat
+- Worker
+- Redis
   
 ## Инструкция по развертыванию:
 
 - Установить зависимости из файла requirements.txt в виртуальное окружение
 - Использовать файл env_sample для отражения настроек
+- Запустить Redis
+- Установить Celery, Worker для периодических задач
 
 Клонирование проекта:
 git clone git@github.com:NikaKoipish/Course_Project_DRF.git
