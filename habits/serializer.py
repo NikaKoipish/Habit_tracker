@@ -4,7 +4,9 @@ from habits.models import Habit, Reward
 from habits.validators import (
     DurationValidator,
     PeriodicityValidator,
-    NiceHabitRewardValidator, NiceHabitValidator, RelatedNiceHabitValidator,
+    NiceHabitRewardValidator,
+    NiceHabitValidator,
+    RelatedNiceHabitValidator,
 )
 
 
@@ -17,8 +19,10 @@ class HabitSerializer(ModelSerializer):
             DurationValidator(field="time_to_implement"),
             PeriodicityValidator(field="periodicity"),
             NiceHabitRewardValidator(field1="related_nice_habit", field2="reward"),
-            NiceHabitValidator(field1="is_nice", field2="related_nice_habit", field3="reward"),
-            RelatedNiceHabitValidator()
+            NiceHabitValidator(
+                field1="is_nice", field2="related_nice_habit", field3="reward"
+            ),
+            RelatedNiceHabitValidator(),
         ]
 
 
@@ -28,4 +32,3 @@ class RewardSerializer(ModelSerializer):
     class Meta:
         model = Reward
         fields = "__all__"
-

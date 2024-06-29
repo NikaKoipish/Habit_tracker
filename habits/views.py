@@ -32,7 +32,9 @@ class HabitListAPIView(ListAPIView):
     pagination_class = ClassesPaginator
 
     def get_queryset(self):
-        self.queryset = Habit.objects.filter(Q(is_public=True) | Q(owner=self.request.user))
+        self.queryset = Habit.objects.filter(
+            Q(is_public=True) | Q(owner=self.request.user)
+        )
         return self.queryset
 
 

@@ -48,7 +48,7 @@ class RelatedNiceHabitValidator:
         if related_habit := habit.get("related_nice_habit"):
             if not related_habit.is_nice:
                 raise serializers.ValidationError(
-                    f"В связанные привычки могут попадать только привычки с признаком приятной привычки"
+                    f'В связанные привычки могут попадать только привычки с признаком приятной привычки'
                 )
 
 
