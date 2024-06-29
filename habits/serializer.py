@@ -1,5 +1,4 @@
 from rest_framework.serializers import ModelSerializer
-from rest_framework.viewsets import ModelViewSet
 
 from habits.models import Habit, Reward
 from habits.validators import (
@@ -19,7 +18,7 @@ class HabitSerializer(ModelSerializer):
             PeriodicityValidator(field="periodicity"),
             NiceHabitRewardValidator(field1="related_nice_habit", field2="reward"),
             NiceHabitValidator(field1="is_nice", field2="related_nice_habit", field3="reward"),
-            RelatedNiceHabitValidator(field1="related_nice_habit", field2="is_nice")
+            RelatedNiceHabitValidator()
         ]
 
 
@@ -30,7 +29,3 @@ class RewardSerializer(ModelSerializer):
         model = Reward
         fields = "__all__"
 
-
-class RewardViewSet(ModelViewSet):
-    queryset = Reward.objects.all()
-    serializer_class = RewardSerializer

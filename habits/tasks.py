@@ -2,8 +2,6 @@ from celery import shared_task
 
 import datetime
 
-from django.utils import timezone
-
 from habits.models import Habit
 from habits.services import send_telegram_message
 
@@ -19,8 +17,12 @@ def send_habit():
             send_telegram_message(message, tg_chat_id)
             periodicity = habit.periodicity
             habit.send_date += datetime.timedelta(days=periodicity)
+            habit.save()
+            print(habit.send_date)
         elif habit.send_date == now and habit.related_nice_habit:
             message = f"Я буду {habit.action} в {habit.time} в {habit.place} и получу за это {habit.related_nice_habit.name}"
             send_telegram_message(message, tg_chat_id)
             periodicity = habit.periodicity
             habit.send_date += datetime.timedelta(days=periodicity)
+            habit.save()
+            print(habit.send_date)

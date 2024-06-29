@@ -8,7 +8,7 @@ class DurationValidator:
         self.field = field
 
     def __call__(self, value):
-        val = dict(value).get(self.field)
+        val = value.get(self.field)
         if val and val > 120:
             raise serializers.ValidationError(
                 f"{self.field} не должно превышать 120 секунд"
@@ -22,7 +22,7 @@ class PeriodicityValidator:
         self.field = field
 
     def __call__(self, value):
-        val = dict(value).get(self.field)
+        val = value.get(self.field)
         if val and val > 7:
             raise serializers.ValidationError(f"{self.field} не должно быть больше 7")
 
@@ -35,7 +35,7 @@ class NiceHabitRewardValidator:
         self.field2 = field2
 
     def __call__(self, value):
-        if dict(value).get(self.field1) and dict(value).get(self.field2):
+        if value.get(self.field1) and value.get(self.field2):
             raise serializers.ValidationError(
                 "Выберите или приятную привычку, или вознаграждение"
             )
@@ -43,10 +43,6 @@ class NiceHabitRewardValidator:
 
 class RelatedNiceHabitValidator:
     """Проверка связанной приятной привычки"""
-
-    def __init__(self, field1, field2):
-        self.field1 = field1
-        self.field2 = field2
 
     def __call__(self, habit: dict):
         if related_habit := habit.get("related_nice_habit"):
@@ -66,10 +62,10 @@ class NiceHabitValidator:
 
     def __call__(self, value):
         if (
-            dict(value).get(self.field1)
-            and dict(value).get(self.field2)
-            or dict(value).get(self.field1)
-            and dict(value).get(self.field3)
+            value.get(self.field1)
+            and value.get(self.field2)
+            or value.get(self.field1)
+            and value.get(self.field3)
         ):
             raise serializers.ValidationError(
                 "У приятной привычки не может быть ни вознаграждения, ни связанной привычки"
