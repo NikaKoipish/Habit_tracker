@@ -1,3 +1,5 @@
+import datetime
+
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -47,6 +49,7 @@ class HabitTestCase(APITestCase):
         url = reverse("habits:habit_list")
         response = self.client.get(url)
         data = response.json()
+        print(data)
         result = {
             "count": 1,
             "next": None,
@@ -62,7 +65,7 @@ class HabitTestCase(APITestCase):
                     "periodicity": self.habit.periodicity,
                     "time_to_implement": self.habit.time_to_implement,
                     "is_public": self.habit.is_public,
-                    "send_date": "2024-06-29",
+                    "send_date": datetime.datetime.now().strftime("%Y-%m-%d"),
                     "owner": self.user.pk,
                     "related_nice_habit": self.habit.related_nice_habit,
                     "reward": self.habit.reward,
@@ -78,7 +81,7 @@ class AuthTestCase(APITestCase):
         self.user = User.objects.create(email="testuser@mail.ru")
         self.habit = Habit.objects.create(name="TestHabit", action="TestAction")
 
-    def test_habit_list(self):
+    def test_auth_habit_list(self):
         url = reverse("habits:habit_list")
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

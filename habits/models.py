@@ -51,7 +51,7 @@ class Habit(models.Model):
     related_nice_habit = models.ForeignKey(
         "self", verbose_name="связанная привычка", on_delete=models.SET_NULL, **NULLABLE
     )
-    periodicity = models.IntegerField(
+    periodicity = models.PositiveIntegerField(
         default=1,
         help_text="Укажите периодичность от 1 до 7, где 1 - один раз в неделю, а 7 - это каждый день",
     )  # 1 день
