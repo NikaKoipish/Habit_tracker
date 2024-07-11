@@ -24,8 +24,10 @@
 - Запустить Redis
 - Установить Celery, Worker для периодических задач
 
-## Команда для создания и запуска контейнера:
-## docker-compose up -d --build   
+## Команда запуска приложения:
+git clone git@github.com:NikaKoipish/Course_Project_DRF.git
+cd Course_Project_DRF
+docker-compose up 
 
 Клонирование проекта:
 git clone git@github.com:NikaKoipish/Course_Project_DRF.git
