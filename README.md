@@ -25,12 +25,9 @@
 - Установить Celery, Worker для периодических задач
 
 ## Команда запуска приложения:
-git clone git@github.com:NikaKoipish/Course_Project_DRF.git
-cd Course_Project_DRF
-docker-compose up 
-
-Клонирование проекта:
-git clone git@github.com:NikaKoipish/Course_Project_DRF.git
+- git clone git@github.com:NikaKoipish/Course_Project_DRF.git
+- cd Course_Project_DRF
+- docker-compose up 
 
 ### Автор проекта:
 https://github.com/NikaKoipish
